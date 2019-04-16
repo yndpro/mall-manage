@@ -1,15 +1,15 @@
 import React from 'react';
 
 
-class Home extends React.Component{
+class NavTop extends React.Component{
     render() {
         return(
-            <div>
-                home
+            <div className="navTop">
+
             </div>
         )
     }
 }
 
 
-export default Home;
+export default NavTop;

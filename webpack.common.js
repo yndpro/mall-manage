@@ -11,6 +11,13 @@ module.exports = {
         index: "./src/index.js"
     },
 
+    resolve: {
+        alias : {
+            component : path.resolve(__dirname,"src/components"),
+            page      : path.resolve(__dirname,"src/pages")
+        }
+    },
+
     module: {
         rules: [
             {
