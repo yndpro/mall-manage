@@ -22,7 +22,12 @@ module.exports = merge(common, {
            }
         ],
         //HMR  It allows all kinds of modules to be updated at runtime without the need for a full refresh.
-        hot: true     //open Hot Module Replacement
+        hot: true,     //open Hot Module Replacement
+
+        historyApiFallback : {
+            index : '/dist/index.html'
+        }
+
     },
 
     output : {

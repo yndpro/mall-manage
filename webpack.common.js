@@ -13,8 +13,8 @@ module.exports = {
 
     resolve: {
         alias : {
-            component : path.resolve(__dirname,"src/components"),
-            page      : path.resolve(__dirname,"src/pages")
+            components : path.resolve(__dirname,"src/components"),
+            pages      : path.resolve(__dirname,"src/pages")
         }
     },
 
@@ -71,6 +71,7 @@ module.exports = {
             template: path.resolve(__dirname,"index.tpl.html"),
             inject:'body',
             filename: './index.html',
+            favicon: "./favicon.ico"
             // '../../../template/ztdj/index.html'
         }),
         new CleanWebpackPlugin(['dist']),
