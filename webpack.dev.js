@@ -15,8 +15,8 @@ module.exports = merge(common, {
         port: 9000,
         proxy: [
             {
-                 context: '/v2/movie/*',
-                 target: 'https://api.douban.com',
+                 context: '/manage',
+                 target: 'http://admintest.happymmall.com',
                  changeOrigin: true,
                  secure: false
            }

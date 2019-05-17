@@ -1,7 +1,11 @@
 import React from 'react';
 
-import util from "util/index.js";
+import User from "service/user_service.js";
+import Util from "util/index.js";
 import "./style.css";
+
+const _user = new User;
+const _util = new Util;
 
 class Login extends React.Component{
 
@@ -14,27 +18,24 @@ class Login extends React.Component{
         }
     }
 
-    changeUsername(e){
+    onInputChange(e){
         this.setState({
-            username : e.target.value
+            [e.target.name] : e.target.value
         })
     }
 
-    changePassword(e){
-        this.setState({
-            password : e.target.value
+    onSubmit(){
+        let loginInfo = {
+            username : this.state.username,
+            password : this.state.password
+        };
+        _user.login(data).then(res => {
+            localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+            location.href = _util.getUrlParam("redirect");
+            console.log(res);
+        },msg => {
+            console.log(msg);
         })
-    }
-
-    submit(){
-        util
-            .post("",{
-                username : this.state.username,
-                password : this.state.password
-            })
-            .then(()=>{
-
-            })
     }
 
     render() {
@@ -48,15 +49,15 @@ class Login extends React.Component{
                         <form>
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Username</label>
-                                <input type="email" className="form-control" id="exampleInputEmail1"
-                                       placeholder="Username" value={this.state.username} onChange={e => this.changeUsername(e)}/>
+                                <input name="username" className="form-control" id="exampleInputEmail1"
+                                       placeholder="Username" value={this.state.username} onChange={e => this.onInputChange(e)}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Password</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1"
-                                       placeholder="Password" value={this.state.password} onChange={e => this.changePassword(e)}/>
+                                <input name="password" type="password" className="form-control" id="exampleInputPassword1"
+                                       placeholder="Password" value={this.state.password} onChange={e => this.onInputChange(e)}/>
                             </div>
-                            <button type="submit" className="btn btn-block btn-primary" onClick={this.submit}>Login</button>
+                            <button type="button" className="btn btn-block btn-primary" onClick={() => this.onSubmit()}>Login</button>
                         </form>
                     </div>
                 </div>
