@@ -19,7 +19,13 @@ module.exports = merge(common, {
                  target: 'http://admintest.happymmall.com',
                  changeOrigin: true,
                  secure: false
-           }
+            },
+            {
+                context: '/user',
+                target: 'http://admintest.happymmall.com',
+                changeOrigin: true,
+                secure: false
+            }
         ],
         //HMR  It allows all kinds of modules to be updated at runtime without the need for a full refresh.
         hot: true,     //open Hot Module Replacement

@@ -29,10 +29,9 @@ class Login extends React.Component{
             username : this.state.username,
             password : this.state.password
         };
-        _user.login(data).then(res => {
-            localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-            location.href = _util.getUrlParam("redirect");
-            console.log(res);
+        _user.login(loginInfo).then(res => {
+            _util.setLocalStorage("loginInfo",loginInfo);
+            location.href = _util.getUrlParam("redirect") || "/";
         },msg => {
             console.log(msg);
         })

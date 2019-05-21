@@ -35,8 +35,33 @@ class Util{
     }
 
     doLogin(){
-
+        window.location.href = "/login?redirct=" + encodeURIComponent(window.location.pathname)
     }
+
+    setLocalStorage(key,value){
+        let type = typeof value;
+        if(type === "string"){
+            localStorage.setItem(key,value);
+        }else if(["number","object","boolean"].indexOf(type) > 0){
+            localStorage.setItem(key,JSON.stringify(value));
+        }else {
+            alert("LocalStorage不支持该格式");
+        }
+    }
+
+    getLocalStorage(key){
+        let value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : "";
+    }
+
+    removeLocalStorage(key){
+        localStorage.hasOwnProperty(key) && localStorage.removeItem(key);
+    }
+
+    trim(str){
+        if(type === "string") return str.replace(/^\s+(.+?)\s+$/,"$1");
+    }
+
 }
 
 export default Util;

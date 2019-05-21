@@ -1,10 +1,28 @@
 import React from 'react';
 
+import User from "service/user_service.js";
+import Util from "util/index.js";
 import {Link} from 'react-router-dom';
 
-class NavTop extends React.Component{
-    onLogout(){
+const _user = new User;
+const _util = new Util;
 
+class NavTop extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            username : _util.getLocalStorage("loginInfo").username
+        }
+    }
+    onLogout(){
+        _user.logout().then(res => {
+            _util.removeLocalStorage("loginInfo");
+            this.setState({
+                username : ""
+            })
+        },msg => {
+            console.log(msg);
+        })
     }
     render() {
         return(
@@ -16,7 +34,7 @@ class NavTop extends React.Component{
                     <li className="dropdown">
                         <a className="dropdown-toggle" href="javascript:;">
                             <i className="fa fa-user fa-fw"></i>
-                            <span>欢迎，adminXXX</span>
+                            {this.state.username ? <span>欢迎，{this.state.username}</span> : <span>登陆</span>}
                             <i className="fa fa-caret-down"></i>
                         </a>
                         <ul className="dropdown-menu dropdown-user">
