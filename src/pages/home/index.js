@@ -12,9 +12,9 @@ class Home extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            productCount : "5345",
-            userCount : "3455",
-            orderCount : "34535",
+            productCount : "-",
+            userCount : "-",
+            orderCount : "-",
         }
     }
 
