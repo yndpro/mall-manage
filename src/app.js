@@ -7,20 +7,21 @@ import Login  from 'pages/login/index.js';
 
 class App extends React.Component{
     render() {
+        let LayoutRouter =
+            <Layout>
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/product" component={Home}/>
+                    <Route exact path="/order" component={Home}/>
+                    <Route exact path="/user" component={Home}/>
+                </Switch>
+            </Layout>;
+
         return (
             <Router>
                 <Switch>
                     <Route exact path="/login" component={Login}/>
-                    <Route path="/" render={() =>
-                        <Layout>
-                            <Switch>
-                                <Route exact path="/" component={Home}/>
-                                <Route exact path="/product" component={Home}/>
-                                <Route exact path="/order" component={Home}/>
-                                <Route exact path="/user" component={Home}/>
-                            </Switch>
-                        </Layout>
-                    }/>
+                    <Route path="/" render={() => LayoutRouter}/>
                 </Switch>
             </Router>
         )
