@@ -29,12 +29,25 @@ class Login extends React.Component{
             username : this.state.username,
             password : this.state.password
         };
+
+        let result = _user.checkLogin(loginInfo);
+        if(result.status){
+            alert(result.msg);
+            return false;
+        }
+
         _user.login(loginInfo).then(res => {
             _util.setLocalStorage("loginInfo",loginInfo);
             location.href = _util.getUrlParam("redirect") || "/";
         },msg => {
-            console.log(msg);
+            alert(msg);
         })
+    }
+
+    onLoginKeyup(e){
+        if(e.keyCode === 13){
+            this.onSubmit()
+        }
     }
 
     render() {
@@ -49,14 +62,23 @@ class Login extends React.Component{
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Username</label>
                                 <input name="username" className="form-control" id="exampleInputEmail1"
-                                       placeholder="Username" value={this.state.username} onChange={e => this.onInputChange(e)}/>
+                                       placeholder="Username"
+                                       value={this.state.username}
+                                       onChange={e => this.onInputChange(e)}
+                                       onKeyUp={e => this.onLoginKeyup(e)}
+                                />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Password</label>
                                 <input name="password" type="password" className="form-control" id="exampleInputPassword1"
-                                       placeholder="Password" value={this.state.password} onChange={e => this.onInputChange(e)}/>
+                                       placeholder="Password"
+                                       value={this.state.password}
+                                       onChange={e => this.onInputChange(e)}
+                                       onKeyUp={e => this.onLoginKeyup(e)}
+                                />
                             </div>
-                            <button type="button" className="btn btn-block btn-primary" onClick={() => this.onSubmit()}>Login</button>
+                            <button type="button" className="btn btn-block btn-primary" onClick={() => this.onSubmit()}
+                            >Login</button>
                         </form>
                     </div>
                 </div>

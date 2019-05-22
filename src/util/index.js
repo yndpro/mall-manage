@@ -59,7 +59,7 @@ class Util{
     }
 
     trim(str){
-        if(type === "string") return str.replace(/^\s+(.+?)\s+$/,"$1");
+        if(typeof str === "string") return str.replace(/^\s+(.+?)\s+$/,"$1");
     }
 
 }

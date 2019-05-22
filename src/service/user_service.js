@@ -24,19 +24,19 @@ class User{
             password = _util.trim(loginInfo.password);
         if(username === ""){
             return {
-                status : -1,
-                mag : "username is empty"
+                status : 1,
+                msg : "username is empty"
             }
         }
         if(password === ""){
             return {
-                status : -1,
-                mag : "password is empty"
+                status : 1,
+                msg : "password is empty"
             }
         }
         return {
-            status : -1,
-            mag : "username is empty"
+            status : 0,
+            msg : "success"
         }
     }
 }

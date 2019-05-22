@@ -10,13 +10,13 @@ class NavSide extends React.Component{
                     <ul className="nav">
                         <li>
                             <NavLink exact activeClassName="active-menu" to="/">
-                                <i className="fa fa-dashboard"></i>
+                                <i className="fa fa-home"></i>
                                 <span>Home</span>
                             </NavLink>
                         </li>
                         <li className="active">
                             <Link to="/product">
-                                <i className="fa fa-sitemap"></i>
+                                <i className="fa fa-gift"></i>
                                 <span>Product</span>
                                 <span className="fa arrow"></span>
                             </Link>
@@ -31,7 +31,7 @@ class NavSide extends React.Component{
                         </li>
                         <li>
                             <Link to="/order">
-                                <i className="fa fa-sitemap"></i>
+                                <i className="fa fa-list"></i>
                                 <span>Order</span>
                                 <span className="fa arrow"></span>
                             </Link>
@@ -43,7 +43,7 @@ class NavSide extends React.Component{
                         </li>
                         <li>
                             <Link to="/user">
-                                <i className="fa fa-sitemap"></i>
+                                <i className="fa fa-user-o"></i>
                                 <span>User</span>
                                 <span className="fa arrow"></span>
                             </Link>
