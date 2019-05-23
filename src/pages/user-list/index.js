@@ -13,17 +13,15 @@ class UserList extends React.Component{
         this.state = {
             list : [],
             pageNum : 0,
-            loading : false
+            firstLoad : false
         }
     }
     getUserList(){
 
-        this.setState({loading : true});
-
         _user.getUserList().then(data => {
             this.setState(data, () => {
                 this.setState({
-                    loading : false
+                    firstLoad : true
                 })
             })
         },msg => {
@@ -35,9 +33,9 @@ class UserList extends React.Component{
     }
 
     render() {
-
-        let tbody = this.state.list.length > 0 ?
-            this.state.list.map((user,key) =>
+        let tbody;
+        if(this.state.list.length > 0){
+            tbody = this.state.list.map((user,key) =>
                 <tr key={key}>
                     <td>{user.id}</td>
                     <td>{user.username}</td>
@@ -46,11 +44,15 @@ class UserList extends React.Component{
                     <td>{user.createTime}</td>
                 </tr>
             )
-            :
-            <tr>
-                <td>没数据</td>
-            </tr>;
-
+        }else if(this.state.firstLoad){
+            tbody = <tr>
+                        <td>加载中...</td>
+                    </tr>;
+        }else{
+            tbody = <tr>
+                        <td>没数据</td>
+                    </tr>;
+        }
 
         return(
             <div id="page-wrapper">

@@ -19,15 +19,15 @@ class Home extends React.Component{
     }
 
     getCount(){
+
+    }
+
+    componentDidMount() {
         _statistic.getBaseCount().then(data => {
             this.setState(data);
         },msg =>{
 
         })
-    }
-
-    componentDidMount() {
-        this.getCount();
     }
 
     render() {
