@@ -39,6 +39,17 @@ class User{
             msg : "success"
         }
     }
+
+    getUserList(pageSize = 10,pageNum = 1){
+        return _util.request({
+            url : '/manage/user/list.do',
+            method : 'POST',
+            data : {
+                pageSize : pageSize,
+                pageNum : pageNum
+            }
+        })
+    }
 }
 
 export default User;
