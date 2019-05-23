@@ -25,6 +25,7 @@ class App extends React.Component{
                 <Switch>
                     <Route exact path="/login" component={Login}/>
                     <Route path="/" render={() => LayoutRouter}/>
+                    <Route component={errorPage}/>
                 </Switch>
             </Router>
         )
