@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Pagination from 'rc-pagination';
 import PageTitle from 'components/page-title/index.js';
 import User from "service/user_service.js";
 
@@ -12,7 +13,7 @@ class UserList extends React.Component{
         super(props);
         this.state = {
             list : [],
-            pageNum : 0,
+            pageNum : 1,
             firstLoad : false
         }
     }
@@ -28,6 +29,14 @@ class UserList extends React.Component{
             alert(msg);
         })
     }
+
+    onPageChange(current, pageSize){
+        this.setState({
+            pageNum : current,
+            pageSize : pageSize
+        })
+    }
+
     componentDidMount() {
         this.getUserList();
     }
@@ -73,6 +82,13 @@ class UserList extends React.Component{
                                 {tbody}
                             </tbody>
                         </table>
+                        <Pagination
+                            showQuickJumper={true}
+                            current={this.state.pageNum}
+                            onChange={(current, pageSize) => {
+                                this.onPageChange(current, pageSize);
+                            }}
+                        />
                     </div>
                 </div>
             </div>

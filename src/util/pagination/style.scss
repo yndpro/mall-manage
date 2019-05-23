@@ -1,0 +1,30 @@
+
+
+
+.guid-item{
+  display: block;
+  text-align: center;
+  height: 160px;
+  padding: 20px 0;
+  opacity: 0.9;
+  .item-count{
+    font-size: 50px;
+    height: 80px;
+    line-height: 80px;
+  }
+  .item-desc{
+    font-size: 18px;
+    i{
+      margin-right: 3px;
+    }
+  }
+  &:hover{
+    text-decoration: none;
+    opacity: 1;
+    color: #fff;
+  }
+  &:focus{
+    text-decoration: none;
+    color: #fff;
+  }
+}
