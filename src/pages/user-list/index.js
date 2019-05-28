@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Pagination from 'rc-pagination';
+import Pagination from 'util/pagination/index.js';
 import PageTitle from 'components/page-title/index.js';
 import User from "service/user_service.js";
 
@@ -14,27 +14,30 @@ class UserList extends React.Component{
         this.state = {
             list : [],
             pageNum : 1,
-            firstLoad : false
+            firstLoad : true
         }
     }
     getUserList(){
-
-        _user.getUserList().then(data => {
-            this.setState(data, () => {
+        _user.getUserList(this.state.pageNum).then(data => {
+            this.setState(data,() => {
                 this.setState({
-                    firstLoad : true
+                    firstLoad : false
                 })
             })
         },msg => {
+            this.setState({
+                list : []
+            });
             alert(msg);
         })
     }
 
-    onPageChange(current, pageSize){
+    onPageChange(current){
         this.setState({
-            pageNum : current,
-            pageSize : pageSize
-        })
+            pageNum : current
+        },() => {
+            this.getUserList();
+        });
     }
 
     componentDidMount() {
@@ -50,16 +53,16 @@ class UserList extends React.Component{
                     <td>{user.username}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
-                    <td>{user.createTime}</td>
+                    <td>{new Date(user.createTime).toLocaleString()}</td>
                 </tr>
             )
         }else if(this.state.firstLoad){
             tbody = <tr>
-                        <td>加载中...</td>
+                        <td colSpan="5" className="text-center">加载中...</td>
                     </tr>;
         }else{
             tbody = <tr>
-                        <td>没数据</td>
+                        <td colSpan="5" className="text-center">没数据</td>
                     </tr>;
         }
 
@@ -83,10 +86,10 @@ class UserList extends React.Component{
                             </tbody>
                         </table>
                         <Pagination
-                            showQuickJumper={true}
+                            total={this.state.total}
                             current={this.state.pageNum}
                             onChange={(current, pageSize) => {
-                                this.onPageChange(current, pageSize);
+                                this.onPageChange(current);
                             }}
                         />
                     </div>

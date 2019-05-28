@@ -40,7 +40,7 @@ class User{
         }
     }
 
-    getUserList(pageSize = 10,pageNum = 1){
+    getUserList(pageNum = 1,pageSize = 10){
         return _util.request({
             url : '/manage/user/list.do',
             method : 'POST',

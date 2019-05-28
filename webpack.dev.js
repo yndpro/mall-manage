@@ -31,7 +31,11 @@ module.exports = merge(common, {
         hot: true,     //open Hot Module Replacement
 
         historyApiFallback : {
-            index : '/dist/index.html'
+            rewrites: [{
+                from: /.*/g,
+                to: '/dist/index.html'
+            }]
+            /*index : '/dist/index.html'*/
         }
 
     },

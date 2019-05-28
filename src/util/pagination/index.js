@@ -1,20 +1,18 @@
 import React from 'react';
 
-import Pagination from 'rc-pagination';
+import RcPagination from 'rc-pagination';
+import 'rc-pagination/dist/rc-pagination.min.css';
 
-import './style.scss';
-
-class errorPage extends React.Component{
-
+class Pagination extends React.Component{
+    constructor(props) {
+        super(props);
+    }
     render() {
+        console.log(this.props);
         return(
-            <div id="page-wrapper">
-                <PageTitle title="错误页面"/>
-                <div className="row">
-                    <div className="col-md-12">
-                        您访问的页面找不到啦~
-                        <Link to="/" className="">返回首页</Link>
-                    </div>
+            <div className="row">
+                <div className="col-md-12">
+                    <RcPagination {...this.props} showQuickJumper hideOnSinglePage />
                 </div>
             </div>
         )
