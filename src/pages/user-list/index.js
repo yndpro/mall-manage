@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Pagination from 'util/pagination/index.js';
+import Table from 'util/table/index.js';
 import PageTitle from 'components/page-title/index.js';
 import User from "service/user_service.js";
 
@@ -13,17 +14,12 @@ class UserList extends React.Component{
         super(props);
         this.state = {
             list : [],
-            pageNum : 1,
-            firstLoad : true
+            pageNum : 1
         }
     }
     getUserList(){
         _user.getUserList(this.state.pageNum).then(data => {
-            this.setState(data,() => {
-                this.setState({
-                    firstLoad : false
-                })
-            })
+            this.setState(data)
         },msg => {
             this.setState({
                 list : []
@@ -45,46 +41,27 @@ class UserList extends React.Component{
     }
 
     render() {
-        let tbody;
-        if(this.state.list.length > 0){
-            tbody = this.state.list.map((user,key) =>
-                <tr key={key}>
-                    <td>{user.id}</td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phone}</td>
-                    <td>{new Date(user.createTime).toLocaleString()}</td>
-                </tr>
-            )
-        }else if(this.state.firstLoad){
-            tbody = <tr>
-                        <td colSpan="5" className="text-center">加载中...</td>
-                    </tr>;
-        }else{
-            tbody = <tr>
-                        <td colSpan="5" className="text-center">没数据</td>
-                    </tr>;
-        }
+
+        let thead = ["ID", "用户名", "邮箱", "电话", "注册时间"];
+
+        let tbody = this.state.list.map((user,key) =>
+            <tr key={key}>
+                <td>{user.id}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.phone}</td>
+                <td>{new Date(user.createTime).toLocaleString()}</td>
+            </tr>
+        );
 
         return(
             <div id="page-wrapper">
                 <PageTitle title="用户列表"/>
                 <div className="row">
                     <div className="col-md-12">
-                        <table className="table table-striped table-border">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>邮箱</th>
-                                    <th>电话</th>
-                                    <th>注册时间</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tbody}
-                            </tbody>
-                        </table>
+                        <Table thead={thead}>
+                            {tbody}
+                        </Table>
                         <Pagination
                             total={this.state.total}
                             current={this.state.pageNum}

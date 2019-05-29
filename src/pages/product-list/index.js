@@ -14,17 +14,12 @@ class ProductList extends React.Component{
         super(props);
         this.state = {
             list : [],
-            pageNum : 1,
-            firstLoad : true
+            pageNum : 1
         }
     }
     getProductList(){
         _product.getProductList(this.state.pageNum).then(data => {
-            this.setState(data,() => {
-                this.setState({
-                    firstLoad : false
-                })
-            })
+            this.setState(data)
         },msg => {
             this.setState({
                 list : []
@@ -64,7 +59,7 @@ class ProductList extends React.Component{
                 <PageTitle title="用户列表"/>
                 <div className="row">
                     <div className="col-md-12">
-                        <Table firstLoad={this.state.firstLoad} thead={thead}>
+                        <Table thead={thead}>
                             {tbody}
                         </Table>
                         <Pagination
