@@ -4,16 +4,23 @@ const _util = new Util;
 
 class Product{
 
-    getProductList(pageNum = 1,pageSize = 10){
+    getProductList({pageNum = 1,pageSize = 10,searchType,searchKeyword = ""}){
+        let url = searchKeyword !== "" ?
+            `/manage/product/search.do?${searchType}=${searchKeyword}`
+            :
+            `/manage/product/list.do`;
+
         return _util.request({
-            url : '/manage/product/list.do',
+            url : url,
             method : 'POST',
             data : {
-                pageSize : pageSize,
-                pageNum : pageNum
+                pageNum     : pageNum,
+                pageSize    : pageSize
             }
-        })
+        });
+
     }
+
 }
 
 export default Product;

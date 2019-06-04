@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './style.scss';
+
 class Table extends React.Component{
     constructor(props) {
         super(props);
@@ -27,7 +29,7 @@ class Table extends React.Component{
         let tableBody = this.props.children.length > 0 ? this.props.children : tableInfo;
 
         return(
-            <table className="table table-striped table-border">
+            <table className="table table-striped table-bordered">
                 <thead>
                     {tableHead}
                 </thead>
