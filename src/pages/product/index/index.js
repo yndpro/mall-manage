@@ -1,59 +1,59 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 import Pagination from 'util/pagination/index.js';
 import Table from 'util/table/index.js';
 import PageTitle from 'components/page-title/index.js';
 import Product from "service/product_service.js";
 import ProductListSearch from 'pages/product/index/index-list-search.js';
-
 import './style.scss';
 
 const _product = new Product;
 
-class ProductList extends React.Component{
+class ProductList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list        : [],
-            pageNum     : 1,
-            listType    : "list"
+            list: [],
+            pageNum: 1,
+            listType: "list"
         }
     }
-    getProductList(){
+
+    getProductList() {
         let listParam = {};
 
-        listParam.list      = this.state.list;
-        listParam.pageNum   = this.state.pageNum;
-        if(this.state.listType === "search"){
-            listParam.searchType    = this.state.searchType;
+        listParam.list = this.state.list;
+        listParam.pageNum = this.state.pageNum;
+        if (this.state.listType === "search") {
+            listParam.searchType = this.state.searchType;
             listParam.searchKeyword = this.state.searchKeyword;
         }
 
         _product.getProductList(listParam).then(data => {
             this.setState(data)
-        },msg => {
+        }, msg => {
             this.setState({
-                list : []
+                list: []
             });
             alert(msg);
         })
     }
 
-    onSeach(searchType,searchKeyword){
+    onSeach(searchType, searchKeyword) {
         this.setState({
-            listType        : "search",
-            pageNum         : 1,
-            searchType      : searchType,
-            searchKeyword   : searchKeyword
-        },() => {
+            listType: "search",
+            pageNum: 1,
+            searchType: searchType,
+            searchKeyword: searchKeyword
+        }, () => {
             this.getProductList()
         });
     }
 
-    onPageChange(current){
+    onPageChange(current) {
         this.setState({
-            pageNum : current
-        },() => {
+            pageNum: current
+        }, () => {
             this.getProductList();
         });
     }
@@ -66,7 +66,7 @@ class ProductList extends React.Component{
 
         let thead = ["商品ID", "商品信息", "价格", "状态", "操作"];
 
-        let tbody = this.state.list.map((product,key) =>
+        let tbody = this.state.list.map((product, key) =>
             <tr key={key}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
@@ -89,10 +89,15 @@ class ProductList extends React.Component{
             </tr>
         );
 
-        return(
+        return (
             <div id="page-wrapper">
-                <PageTitle title="产品列表"/>
-                <ProductListSearch onSeach={(searchType,searchKeyword) => this.onSeach(searchType,searchKeyword)}/>
+                <PageTitle title="产品列表">
+                    <Link className="product-create btn btn-primary" to="/product/save">
+                        <i className="fa fa-plus"/>
+                        <span>新增商品</span>
+                    </Link>
+                </PageTitle>
+                <ProductListSearch onSeach={(searchType, searchKeyword) => this.onSeach(searchType, searchKeyword)}/>
                 <div className="row">
                     <div className="col-md-12">
                         <Table thead={thead}>

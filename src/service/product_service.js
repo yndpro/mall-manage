@@ -21,6 +21,16 @@ class Product{
 
     }
 
+    getCategory(categoryId = 0){
+        return _util.request({
+            url : '/manage/category/get_category.do',
+            method : 'POST',
+            data : {
+                categoryId   : categoryId
+            }
+        });
+    }
+
 }
 
 export default Product;

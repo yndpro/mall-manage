@@ -25,7 +25,7 @@ class ProductListSearch extends React.Component{
         return(
             <div className="row">
                 <div className="col-md-12">
-                    <div className="form-inline">
+                    <div className="form-inline product-top">
                         <div className="form-group">
                             <select className="form-control" name="searchType" onChange={(e) => this.onSeachTypeChange(e)}>
                                 <option value="productId">按商品ID查询</option>
