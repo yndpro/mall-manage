@@ -14,11 +14,22 @@ class ProductCategorySelector extends React.Component {
         }
     }
 
-    onSelectChange(e){
+    on1CategoryChange(e){
         this.setState({
-            category1Id : e.target.value
+            category1Id   : e.target.value,
+            category2Id   : 0,
+            category2List : []
         },() => {
+            typeof this.props.onCategoryChange === 'function' && this.props.onCategoryChange(this.state.category1Id,this.state.category2Id);
             this.get2Category();
+        });
+    }
+
+    on2CategoryChange(e){
+        this.setState({
+            category2Id   : e.target.value,
+        },() => {
+            typeof this.props.onCategoryChange === 'function' && this.props.onCategoryChange(this.state.category1Id,this.state.category2Id);
         });
     }
 
@@ -26,8 +37,6 @@ class ProductCategorySelector extends React.Component {
         _product.getCategory(this.state.category1Id).then(data => {
             this.setState({
                 category2List : data
-            },() => {
-                typeof this.props.onCategoryChange === 'function' && this.props.onCategoryChange(this.state.category1Id,this.state.category2Id);
             });
         },msg => {
             alert(msg);
@@ -38,8 +47,6 @@ class ProductCategorySelector extends React.Component {
         _product.getCategory().then(data => {
             this.setState({
                 category1List : data
-            },() => {
-                typeof this.props.onCategoryChange === 'function' && this.props.onCategoryChange(this.state.category1Id,this.state.category2Id);
             });
         },msg => {
             alert(msg);
@@ -53,17 +60,23 @@ class ProductCategorySelector extends React.Component {
     render() {
         return (
             <div>
-                <select className="form-control" onChange={e => this.onSelectChange(e)}>
+                <select className="form-control" onChange={e => this.on1CategoryChange(e)}>
                     <option>请选择一级分类</option>
                     {
                         this.state.category1List.length > 0 ?
-                            this.state.category1List.map(item => <option value={item.id}>{item.name}</option>)
+                            this.state.category1List.map((item,index) => <option key={index} value={item.id}>{item.name}</option>)
                             :
                             null
                     }
                 </select>
-                <select className="form-control">
+                <select className="form-control" onChange={e => this.on2CategoryChange(e)}>
                     <option>请选择二级分类</option>
+                    {
+                        this.state.category2List.length > 0 ?
+                            this.state.category2List.map((item,index) => <option key={index} value={item.id}>{item.name}</option>)
+                            :
+                            null
+                    }
                 </select>
             </div>
         )

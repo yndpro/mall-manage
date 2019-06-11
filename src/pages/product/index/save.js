@@ -2,11 +2,11 @@ import React                        from 'react';
 import PageTitle                    from 'components/page-title/index.js';
 import Product                      from "service/product_service.js";
 import ProductCategorySelector      from "pages/product/index/category-selector.js";
-import "./create.scss";
+import "./save.scss";
 
 const _product = new Product;
 
-class ProductCreate extends React.Component {
+class ProductSave extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,34 +24,7 @@ class ProductCreate extends React.Component {
     }
 
     getProductList() {
-        let listParam = {};
 
-        listParam.list = this.state.list;
-        listParam.pageNum = this.state.pageNum;
-        if (this.state.listType === "search") {
-            listParam.searchType = this.state.searchType;
-            listParam.searchKeyword = this.state.searchKeyword;
-        }
-
-        _product.getProductList(listParam).then(data => {
-            this.setState(data)
-        }, msg => {
-            this.setState({
-                list: []
-            });
-            alert(msg);
-        })
-    }
-
-    onSeach(searchType, searchKeyword) {
-        this.setState({
-            listType: "search",
-            pageNum: 1,
-            searchType: searchType,
-            searchKeyword: searchKeyword
-        }, () => {
-            this.getProductList()
-        });
     }
 
     onValueChange(e) {
@@ -146,4 +119,4 @@ class ProductCreate extends React.Component {
 }
 
 
-export default ProductCreate;
+export default ProductSave;
