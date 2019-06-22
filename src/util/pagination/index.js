@@ -8,7 +8,6 @@ class Pagination extends React.Component{
         super(props);
     }
     render() {
-        console.log(this.props);
         return(
             <div className="row">
                 <div className="col-md-12">

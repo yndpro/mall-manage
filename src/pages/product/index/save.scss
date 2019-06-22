@@ -1,4 +1,34 @@
 
-.productCreate{
-
+$imgHeight : 100px;
+$imgWidth  : 100px;
+.form-images{
+  .images-item{
+    margin-right: 5px;
+    width: $imgWidth;
+    height: $imgHeight;
+    float: left;
+    position: relative;
+    i{
+      position: absolute;
+      top:0;
+      left:0;
+      width: $imgWidth;
+      height: $imgHeight;
+      line-height: $imgHeight;
+      display: none;
+      font-size: 50px;
+      text-align: center;
+      cursor: pointer;
+    }
+    img{
+      display: block;
+      width: $imgWidth;
+      height: $imgHeight;
+    }
+    &:hover{
+      i{
+        display: block;
+      }
+    }
+  }
 }
