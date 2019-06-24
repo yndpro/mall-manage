@@ -43,12 +43,10 @@ let strategies = {
             void 0 : errorMsg
     },
     isNumber(value, errorMsg){
-        console.log(value);
         return typeof value === 'number' && !isNaN(value) ?
             void 0 : errorMsg
     },
     minNumber(value,minNum,errorMsg){
-        console.log(value,minNum);
         return value > parseInt(minNum) ?
             void 0 : errorMsg
     },

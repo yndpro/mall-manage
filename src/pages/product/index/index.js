@@ -39,6 +39,21 @@ class ProductList extends React.Component {
         })
     }
 
+    onChangeProductStatus(e,productId,status){
+        let product;
+        let confirmMsg = status === 1 ? "确定下架？" : "确定上架？";
+        if(window.confirm(confirmMsg)){
+            product = this.state.list.find(value => value.id === productId);
+            product.status = status === 2 ? 1 : 2;
+            _product.setProductStatus(productId,product.status).then(data => {
+                alert(data);
+                this.setState({
+                    list: this.state.list
+                });
+            })
+        }
+    }
+
     onSeach(searchType, searchKeyword) {
         this.setState({
             listType: "search",
@@ -74,17 +89,17 @@ class ProductList extends React.Component {
                 {product.status === 1 ?
                     <td>
                         <div>在售</div>
-                        <a className="btn btn-warning btn-sm" href="javascript:;">下架</a>
+                        <a className="btn btn-warning btn-sm" onClick={e => this.onChangeProductStatus(e,product.id,product.status)} href="javascript:;">下架</a>
                     </td>
                     :
                     <td>
                         <div>已下架</div>
-                        <a className="btn btn-warning btn-sm" href="javascript:;">上架</a>
+                        <a className="btn btn-warning btn-sm" onClick={e => this.onChangeProductStatus(e,product.id,product.status)} href="javascript:;">上架</a>
                     </td>
                 }
                 <td>
-                    <a href="javascript:;">详情</a>
-                    <a href="javascript:;">编辑</a>
+                    <Link to={`/product/detail/:${product.id}`}>详情</Link>
+                    <Link to={`/product/save/:${product.id}`}>编辑</Link>
                 </td>
             </tr>
         );

@@ -2,6 +2,7 @@
 $imgHeight : 100px;
 $imgWidth  : 100px;
 .form-images{
+  margin-bottom: 10px;
   .images-item{
     margin-right: 5px;
     width: $imgWidth;
@@ -30,5 +31,11 @@ $imgWidth  : 100px;
         display: block;
       }
     }
+  }
+}
+
+.form-category{
+  .form-control{
+    margin-bottom: 10px;
   }
 }
