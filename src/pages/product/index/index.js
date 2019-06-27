@@ -98,8 +98,8 @@ class ProductList extends React.Component {
                     </td>
                 }
                 <td>
-                    <Link to={`/product/detail/:${product.id}`}>详情</Link>
-                    <Link to={`/product/save/:${product.id}`}>编辑</Link>
+                    <Link to={`/product/detail/${product.id}`}>详情</Link>
+                    <Link to={`/product/save/${product.id}`}>编辑</Link>
                 </td>
             </tr>
         );

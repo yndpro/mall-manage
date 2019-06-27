@@ -41,6 +41,16 @@ class Product{
         });
     }
 
+    getProductDetail(productId){
+        return _util.request({
+            url : '/manage/product/detail.do',
+            method : 'POST',
+            data : {
+                productId
+            }
+        });
+    }
+
     setProductStatus(productId,status){
         return _util.request({
             url : '/manage/product/set_sale_status.do',

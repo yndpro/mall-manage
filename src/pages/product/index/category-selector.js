@@ -53,6 +53,18 @@ class ProductCategorySelector extends React.Component {
         })
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if((this.state.category1Id !== nextProps.category1Id) ||
+            (this.state.category2Id !== nextProps.category2Id)){
+            this.setState({
+                category1Id : nextProps.category1Id,
+                category2Id : nextProps.category2Id
+            },() => {
+                this.get2Category();
+            })
+        }
+    }
+
     componentDidMount() {
         this.get1Category();
     }
@@ -60,7 +72,9 @@ class ProductCategorySelector extends React.Component {
     render() {
         return (
             <div>
-                <select className="form-control" onChange={e => this.on1CategoryChange(e)}>
+                <select className="form-control"
+                        value={this.state.category1Id}
+                        onChange={e => this.on1CategoryChange(e)}>
                     <option>请选择一级分类</option>
                     {
                         this.state.category1List.length > 0 ?
@@ -69,7 +83,9 @@ class ProductCategorySelector extends React.Component {
                             null
                     }
                 </select>
-                <select className="form-control" onChange={e => this.on2CategoryChange(e)}>
+                <select className="form-control"
+                        value={this.state.category2Id}
+                        onChange={e => this.on2CategoryChange(e)}>
                     <option>请选择二级分类</option>
                     {
                         this.state.category2List.length > 0 ?

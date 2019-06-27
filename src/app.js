@@ -5,6 +5,7 @@ import Home   from 'pages/home/index.js';
 import UserList  from 'pages/user-list/index.js';
 import ProductList  from 'pages/product/index/index.js';
 import ProductSave  from 'pages/product/index/save.js';
+import Detail  from 'pages/product/index/detail.js';
 import Login  from 'pages/login/index.js';
 import errorPage from "./pages/error";
 
@@ -14,7 +15,8 @@ class App extends React.Component{
             <Layout>
                 <Switch>
                     <Route exact path="/" component={Home}/>
-                    <Route path="/product/save" component={ProductSave}/>
+                    <Route path="/product/save/:pid" component={ProductSave}/>
+                    <Route path="/product/detail/:pid" component={Detail}/>
                     <Route path="/product" component={ProductList}/>
                     <Route path="/order" component={Home}/>
                     <Route path="/user" component={UserList}/>

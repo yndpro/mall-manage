@@ -71,19 +71,44 @@ class ProductSave extends React.Component {
             detail: this.state.detail,
             price: parseFloat(this.state.price),
             stock: parseFloat(this.state.stock),
-            status: this.state.status,
-            id: this.state.id
+            status: this.state.status
         };
+        if(this.state.id){
+            product.id = this.state.id;
+        }
 
         if (!_product.checkProduct(product)) {
             return false
         }
-
         _product.saveProduct(product);
-
     }
 
     componentDidMount() {
+        if(this.state.id){
+            _product.getProductDetail(this.state.id).then(data => {
+
+                let subImages = data.subImages.split(",").map(uri => {
+                    return {
+                        url : data.imageHost + uri,
+                        uri : uri
+                    }
+                });
+
+                this.setState({
+                    name                : data.name || "",
+                    subtitle            : data.subtitle || "",
+                    category1Id         : data.parentCategoryId || 0,
+                    category2Id         : data.categoryId || 0,
+                    mainImage           : data.imageHost + data.mainImage || "",
+                    subImages           : subImages || [],
+                    price               : data.price || 0,
+                    stock               : data.stock || 0,
+                    detail              : data.detail || "",
+                    status              : data.status || 0
+                })
+
+            })
+        }
 
     }
 
@@ -117,8 +142,11 @@ class ProductSave extends React.Component {
                             <div className="form-group form-category">
                                 <label className="col-md-2 control-label">所属分类</label>
                                 <div className="col-md-5">
-                                    <ProductCategorySelector onCategoryChange={(category1Id,category2Id) => {
-                                        this.onCategoryChange(category1Id,category2Id);
+                                    <ProductCategorySelector
+                                        category1Id={this.state.category1Id}
+                                        category2Id={this.state.category2Id}
+                                        onCategoryChange={(category1Id,category2Id) => {
+                                            this.onCategoryChange(category1Id,category2Id);
                                     }}/>
                                 </div>
                             </div>

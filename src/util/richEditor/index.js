@@ -8,6 +8,13 @@ export default class RichEditor extends React.Component{
         this.editor = null;
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(this.props.detail !== nextProps.detail){
+            this.editor.setValue(nextProps.detail);
+            this.editor.focus();
+        }
+    }
+
     componentDidMount() {
         let editor = this.refs['editor'];
         this.editor = new Simditor({
@@ -23,13 +30,13 @@ export default class RichEditor extends React.Component{
         });
         this.editor.on('valuechanged',e => {
             this.props.onChange(this.editor.getValue())
-        })
+        });
     }
 
     render() {
         return (
             <div className="richEditor">
-                <textarea ref="editor" autoFocus/>
+                <textarea ref="editor"/>
             </div>
         )
     }
