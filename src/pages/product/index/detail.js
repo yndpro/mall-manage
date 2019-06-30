@@ -74,9 +74,11 @@ class Detail extends React.Component {
                             <div className="form-group form-category">
                                 <label className="col-md-2 control-label">所属分类</label>
                                 <div className="col-md-5">
-                                    <ProductCategorySelector onCategoryChange={(category1Id,category2Id) => {
-                                        this.onCategoryChange(category1Id,category2Id);
-                                    }}/>
+                                    <ProductCategorySelector
+                                        readOnly={true}
+                                        category1Id={this.state.category1Id}
+                                        category2Id={this.state.category2Id}
+                                    />
                                 </div>
                             </div>
                             <div className="form-group">
@@ -110,7 +112,7 @@ class Detail extends React.Component {
                             <div className="form-group">
                                 <label className="col-md-2 control-label">商品详情</label>
                                 <div className="col-md-10">
-                                    <div>{this.state.detail}</div>
+                                    <div dangerouslySetInnerHTML={{__html:this.state.detail}}/>
                                 </div>
                             </div>
                             <div className="form-group">

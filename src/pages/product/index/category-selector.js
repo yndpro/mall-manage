@@ -15,6 +15,9 @@ class ProductCategorySelector extends React.Component {
     }
 
     on1CategoryChange(e){
+        if(this.props.readOnly){
+            return false
+        }
         this.setState({
             category1Id   : e.target.value,
             category2Id   : 0,
@@ -26,6 +29,9 @@ class ProductCategorySelector extends React.Component {
     }
 
     on2CategoryChange(e){
+        if(this.props.readOnly){
+            return false
+        }
         this.setState({
             category2Id   : e.target.value,
         },() => {
@@ -74,6 +80,7 @@ class ProductCategorySelector extends React.Component {
             <div>
                 <select className="form-control"
                         value={this.state.category1Id}
+                        readOnly={this.props.readOnly}
                         onChange={e => this.on1CategoryChange(e)}>
                     <option>请选择一级分类</option>
                     {
@@ -85,6 +92,7 @@ class ProductCategorySelector extends React.Component {
                 </select>
                 <select className="form-control"
                         value={this.state.category2Id}
+                        readOnly={this.props.readOnly}
                         onChange={e => this.on2CategoryChange(e)}>
                     <option>请选择二级分类</option>
                     {
