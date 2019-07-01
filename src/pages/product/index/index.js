@@ -30,12 +30,16 @@ class ProductList extends React.Component {
         }
 
         _product.getProductList(listParam).then(data => {
-            this.setState(data)
+            if(this._isMounted){
+                this.setState(data)
+            }
         }, msg => {
-            this.setState({
-                list: []
-            });
-            alert(msg);
+            if(this._isMounted){
+                this.setState({
+                    list: []
+                });
+                alert(msg);
+            }
         })
     }
 
@@ -74,7 +78,12 @@ class ProductList extends React.Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.getProductList();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {

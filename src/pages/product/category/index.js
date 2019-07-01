@@ -8,40 +8,65 @@ import './style.scss';
 const _category = new Category;
 
 class CategoryList extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            parentId : this.props.match.param.parentId || 0,
-            list: [],
-            listType: "list"
+            parentId : this.props.match.params.parentId || 0,
+            list: []
         }
     }
 
     getCategoryList() {
-        _category.getCategoryList(this.state.parentId).then(data => {
-            this.setState(data)
+        _category.getCategory(this.state.parentId).then(data => {
+            if(this._isMounted){
+                this.setState({
+                    list : data
+                })
+            }
         }, msg => {
-            this.setState({
-                list: []
-            });
-            alert(msg);
+            if(this._isMounted){
+                this.setState({
+                    list : []
+                });
+                alert(msg);
+            }
         })
     }
 
     setCategoryName(categoryId){
         let categoryName = window.prompt("Please input the category name");
         if(categoryName){
-            _category.setCategoryName(categoryId,categoryName).then(data => {
-                this.setState(data)
+            _category.setCategoryName({
+                categoryId : categoryId,
+                categoryName : categoryName
+            }).then(data => {
+                alert("Set categoryName successful");
+                this.getCategoryList()
             }, msg => {
                 alert(msg);
             })
         }
+    }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        let newParentId = nextProps.match.params.parentId || 0;
+        if(this.state.parentId !== newParentId){
+            this.setState({
+                parentId : newParentId
+            },() => {
+                this.getCategoryList();
+            })
+        }
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.getCategoryList();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {
@@ -55,7 +80,7 @@ class CategoryList extends React.Component {
                 <td>
                     <a href="javascript:;" onClick={() => this.setCategoryName(category.id)}>修改名称</a>
                     {category.parentId === 0 ?
-                    <Link to={`/category/index/${category.id}`}>查看子品类</Link>
+                    <Link to={`/product-category/index/${category.id}`}>查看子品类</Link>
                     :
                     null
                     }
@@ -65,7 +90,12 @@ class CategoryList extends React.Component {
 
         return (
             <div id="page-wrapper">
-                <PageTitle title="品类列表"/>
+                <PageTitle title="品类列表">
+                    <Link className="product-create btn btn-primary" to="/product-category/save">
+                        <i className="fa fa-plus"/>
+                        <span>新增品类</span>
+                    </Link>
+                </PageTitle>
                 <div className="row">
                     <div className="col-md-12">
                         <p>父品类ID：{this.state.parentId}</p>

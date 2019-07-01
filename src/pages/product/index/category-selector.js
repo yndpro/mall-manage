@@ -1,7 +1,7 @@
 import React        from 'react';
-import Product      from "service/product_service.js";
+import Category     from "service/category_service.js";
 
-const _product = new Product;
+const _category = new Category;
 
 class ProductCategorySelector extends React.Component {
     constructor(props) {
@@ -40,20 +40,24 @@ class ProductCategorySelector extends React.Component {
     }
 
     get2Category(){
-        _product.getCategory(this.state.category1Id).then(data => {
-            this.setState({
-                category2List : data
-            });
+        _category.getCategory(this.state.category1Id).then(data => {
+            if(this._isMounted){
+                this.setState({
+                    category2List : data
+                });
+            }
         },msg => {
             alert(msg);
         })
     }
 
     get1Category(){
-        _product.getCategory().then(data => {
-            this.setState({
-                category1List : data
-            });
+        _category.getCategory().then(data => {
+            if(this._isMounted){
+                this.setState({
+                    category1List : data
+                });
+            }
         },msg => {
             alert(msg);
         })
@@ -72,7 +76,12 @@ class ProductCategorySelector extends React.Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.get1Category();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {

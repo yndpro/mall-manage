@@ -1,16 +1,17 @@
 import React from 'react';
-import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Switch ,Redirect} from 'react-router-dom';
 import Layout from 'components/layout/index.js';
-import Home   from 'pages/home/index.js';
-import UserList  from 'pages/user-list/index.js';
-import ProductList  from 'pages/product/index/index.js';
-import ProductSave  from 'pages/product/index/save.js';
-import Detail  from 'pages/product/index/detail.js';
-import Category  from 'pages/product/category/index.js';
-import Login  from 'pages/login/index.js';
+import Home from 'pages/home/index.js';
+import UserList from 'pages/user-list/index.js';
+import ProductList from 'pages/product/index/index.js';
+import ProductSave from 'pages/product/index/save.js';
+import Detail from 'pages/product/index/detail.js';
+import Category from 'pages/product/category/index.js';
+import CategorySave from 'pages/product/category/save.js';
+import Login from 'pages/login/index.js';
 import errorPage from "./pages/error";
 
-class App extends React.Component{
+class App extends React.Component {
     render() {
         let LayoutRouter =
             <Layout>
@@ -18,8 +19,12 @@ class App extends React.Component{
                     <Route exact path="/" component={Home}/>
                     <Route path="/product/save/:pid" component={ProductSave}/>
                     <Route path="/product/detail/:pid" component={Detail}/>
-                    <Route path="/product" component={ProductList}/>
-                    <Route path="/product-category/:parentId" component={Category}/>
+                    <Route path="/product/index" component={ProductList}/>
+                    <Redirect from="/product" to="/product/index"/>
+                    <Route path="/product-category/save" component={CategorySave}/>
+                    <Route path="/product-category/index/:parentId" component={Category}/>
+                    <Route path="/product-category/index" component={Category}/>
+                    <Redirect from="/product-category" to="/product-category/index"/>
                     <Route path="/order" component={Home}/>
                     <Route path="/user" component={UserList}/>
                     <Route component={errorPage}/>
