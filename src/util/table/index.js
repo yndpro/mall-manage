@@ -17,8 +17,8 @@ class Table extends React.Component{
 
     render() {
         let tableHead = <tr>{
-            this.props.thead.map((td,key) =>
-                <td key={key}>{td}</td>
+            this.props.thead.map(({name,width},key) =>
+                <td key={key} width={width}>{name}</td>
             )}
         </tr>;
 
