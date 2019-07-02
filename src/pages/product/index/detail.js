@@ -115,12 +115,6 @@ class Detail extends React.Component {
                                     <div dangerouslySetInnerHTML={{__html:this.state.detail}}/>
                                 </div>
                             </div>
-                            <div className="form-group">
-                                <div className="col-md-offset-2 col-md-10">
-                                    <button type="submit" className="btn btn-primary" onClick={() => this.onSubmit()}>提交</button>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>

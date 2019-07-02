@@ -16,9 +16,16 @@ class Detail extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this._isMounted = true;
+    sendGoods(){
+        _order.sendGoods(this.state.orderNo).then(data => {
+            alert(data);
+            this.getOrderDetail();
+        },errorMsg => {
+            alert(errorMsg);
+        })
+    }
 
+    getOrderDetail(){
         if(this.state.orderNo){
             _order.getOrderDetail(this.state.orderNo).then(data => {
                 if(this._isMounted){
@@ -26,8 +33,15 @@ class Detail extends React.Component {
                         orderInfo : data || {}
                     })
                 }
+            },errorMsg => {
+                alert(errorMsg);
             })
         }
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+        this.getOrderDetail();
     }
 
     componentWillUnmount() {
@@ -36,6 +50,7 @@ class Detail extends React.Component {
 
     render() {
         let productList = this.state.orderInfo.orderItemVoList || [];
+        let receiverInfo = this.state.orderInfo.shippingVo || {};
 
         let thead = [
             {name: '商品图片', width: '10%'},
@@ -48,7 +63,7 @@ class Detail extends React.Component {
         let tbody = productList.map((product, key) =>
             <tr key={key}>
                 <td>
-                    <Link to={`/product/detail/${product.productId}`}><img src={`${this.state.orderInfo.imageHost}${product.productImage}`} alt=""/></Link>
+                    <Link to={`/product/detail/${product.productId}`}><img className="item-img" src={`${this.state.orderInfo.imageHost}${product.productImage}`} alt=""/></Link>
                 </td>
                 <td>
                     <Link to={`/product/detail/${product.productId}`}>{product.productName}</Link>
@@ -64,7 +79,7 @@ class Detail extends React.Component {
                 <PageTitle title="订单详情"/>
                 <div className="row">
                     <div className="col-md-12">
-                        <div className="form-horizontal productCreate">
+                        <div className="form-horizontal orderDetail-form">
                             <div className="form-group">
                                 <label className="col-md-2 control-label">订单号</label>
                                 <div className="col-md-5">
@@ -77,10 +92,30 @@ class Detail extends React.Component {
                                     <div className="control-state">{this.state.orderInfo.createTime}</div>
                                 </div>
                             </div>
+                            <div className="form-group">
+                                <label className="col-md-2 control-label">收件人</label>
+                                <div className="col-md-5">
+                                    <div className="control-state">
+                                        {receiverInfo.receiverName}
+                                        {receiverInfo.receiverProvince}
+                                        {receiverInfo.receiverCity}
+                                        {receiverInfo.receiverAddress}
+                                        {receiverInfo.receiverMobile || receiverInfo.receiverPhone}
+                                    </div>
+                                </div>
+                            </div>
                             <div className="form-group form-category">
                                 <label className="col-md-2 control-label">订单状态</label>
                                 <div className="col-md-5">
-
+                                    <div className="control-state">
+                                        {this.state.orderInfo.statusDesc}
+                                        {
+                                            this.state.status === 20 ?
+                                                <button onClick={() => this.sendGoods()}>立即发货</button>
+                                                :
+                                                null
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div className="form-group">
