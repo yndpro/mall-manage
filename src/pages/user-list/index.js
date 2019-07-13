@@ -41,8 +41,13 @@ class UserList extends React.Component{
     }
 
     render() {
-
-        let thead = ["ID", "用户名", "邮箱", "电话", "注册时间"];
+        let thead = [
+            {name:'ID',width:'20%'},
+            {name:'用户名',width:'20%'},
+            {name:'邮箱',width:'20%'},
+            {name:'电话',width:'20%'},
+            {name:'注册时间',width:'20%'},
+        ];
 
         let tbody = this.state.list.map((user,key) =>
             <tr key={key}>

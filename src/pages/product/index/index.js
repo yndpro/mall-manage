@@ -88,7 +88,13 @@ class ProductList extends React.Component {
 
     render() {
 
-        let thead = ["商品ID", "商品信息", "价格", "状态", "操作"];
+        let thead = [
+            {name:'商品ID',width:'20%'},
+            {name:'商品信息',width:'20%'},
+            {name:'价格',width:'20%'},
+            {name:'状态',width:'20%'},
+            {name:'操作',width:'15%'}
+        ];
 
         let tbody = this.state.list.map((product, key) =>
             <tr key={key}>

@@ -34,8 +34,9 @@ class App extends React.Component {
                     <Route path="/order/detail/:orderNo" component={OrderDetail}/>
                     <Redirect from="/order" to="/order/index"/>
 
-                    <Route path="/order" component={Home}/>
-                    <Route path="/user" component={UserList}/>
+                    <Route path="/user/index" component={UserList}/>
+                    <Redirect from="/user" to="/user/index"/>
+
                     <Route component={errorPage}/>
                 </Switch>
             </Layout>;

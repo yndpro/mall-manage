@@ -70,8 +70,11 @@ class CategoryList extends React.Component {
     }
 
     render() {
-
-        let thead = ["品类ID", "品类名称", "操作"];
+        let thead = [
+            {name:'品类ID',width:'30%'},
+            {name:'品类名称',width:'50%'},
+            {name:'操作',width:'20%'}
+        ];
 
         let tbody = this.state.list.map((category, key) =>
             <tr key={key}>
